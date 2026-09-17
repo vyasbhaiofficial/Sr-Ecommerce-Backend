@@ -32,6 +32,9 @@ exports.createBanner = async (req, res) => {
         // Get desktop banner (required)
         let desktopImage = await getProfileImage(req, 'desktopImage', 'banners');
         if (!desktopImage) {
+            desktopImage = await getProfileImage(req, 'desktop', 'banners');
+        }
+        if (!desktopImage) {
             desktopImage = await getProfileImage(req, 'image', 'banners');
         }
         
@@ -45,7 +48,10 @@ exports.createBanner = async (req, res) => {
         bannerData.image = desktopImage;
 
         // Get mobile banner (optional)
-        const mobileImage = await getProfileImage(req, 'mobileImage', 'banners');
+        let mobileImage = await getProfileImage(req, 'mobileImage', 'banners');
+        if (!mobileImage) {
+            mobileImage = await getProfileImage(req, 'mobile', 'banners');
+        }
         if (mobileImage) {
             bannerData.mobileImage = mobileImage;
         }
@@ -202,8 +208,11 @@ exports.updateBanner = async (req, res) => {
             updateData.endDate = endDate ? new Date(endDate) : null;
         }
 
-        // Update desktop image if provided (supports both desktopImage and image fields)
-        const uploadedDesktopImage = await getProfileImage(req, 'desktopImage', 'banners');
+        // Update desktop image if provided (supports desktopImage, desktop, and image fields)
+        let uploadedDesktopImage = await getProfileImage(req, 'desktopImage', 'banners');
+        if (!uploadedDesktopImage) {
+            uploadedDesktopImage = await getProfileImage(req, 'desktop', 'banners');
+        }
         if (uploadedDesktopImage) {
             updateData.desktopImage = uploadedDesktopImage;
             updateData.image = uploadedDesktopImage;
@@ -215,8 +224,11 @@ exports.updateBanner = async (req, res) => {
             }
         }
 
-        // Update mobile image if provided
-        const uploadedMobileImage = await getProfileImage(req, 'mobileImage', 'banners');
+        // Update mobile image if provided (supports mobileImage and mobile fields)
+        let uploadedMobileImage = await getProfileImage(req, 'mobileImage', 'banners');
+        if (!uploadedMobileImage) {
+            uploadedMobileImage = await getProfileImage(req, 'mobile', 'banners');
+        }
         if (uploadedMobileImage) {
             updateData.mobileImage = uploadedMobileImage;
         }

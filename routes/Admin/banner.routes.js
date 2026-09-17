@@ -3,10 +3,12 @@ const router = express.Router();
 const bannerController = require('../../controller/banner.controller');
 const { upload } = require('../../helper/upload');
 
-// Accept both desktopImage (required) and mobileImage (optional)
+// Accept desktopImage/desktop (required) and mobileImage/mobile (optional)
 router.post('/', upload.fields([
     { name: 'desktopImage', maxCount: 1 },
+    { name: 'desktop', maxCount: 1 },
     { name: 'mobileImage', maxCount: 1 },
+    { name: 'mobile', maxCount: 1 },
     { name: 'image', maxCount: 1 } // Legacy support for single image upload
 ]), bannerController.createBanner);
 
@@ -16,7 +18,9 @@ router.get('/:id', bannerController.getBannerById);
 
 router.put('/:id', upload.fields([
     { name: 'desktopImage', maxCount: 1 },
+    { name: 'desktop', maxCount: 1 },
     { name: 'mobileImage', maxCount: 1 },
+    { name: 'mobile', maxCount: 1 },
     { name: 'image', maxCount: 1 }
 ]), bannerController.updateBanner);
 
