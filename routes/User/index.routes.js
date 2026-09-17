@@ -23,6 +23,7 @@ const answerRoutes = require('./answer.routes');
 const contactRoutes = require('./contact.routes');
 const notificationRoutes = require('./notification.routes');
 const storyRoutes = require('./story.routes');
+const policyRoutes = require('./policy.routes');
 
 router.post('/register', userController.register);
 router.post('/login', userController.login);
@@ -43,6 +44,7 @@ router.use('/products', productRoutes);
 router.use('/categories', categoryRoutes);
 router.use('/orders', userVerifyToken, orderRoutes);
 router.use('/reviews', userVerifyToken, reviewRoutes);
+router.use('/policies', policyRoutes);
 
 // Expose pincode validation publicly so guests can use it on the product page
 const addressController = require('../../controller/address.controller');

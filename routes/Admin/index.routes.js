@@ -20,6 +20,7 @@ const notificationRoutes = require('./notification.routes');
 const storyRoutes = require('./story.routes');
 const couponRoutes = require('./coupon.routes');
 const reviewRoutes = require('./review.routes');
+const policyRoutes = require('./policy.routes');
 
 const { adminVerifyToken } = require('../../helper/admin.verifyToken');
 
@@ -36,6 +37,7 @@ router.use('/orders', adminVerifyToken, ordersRoutes);
 router.use('/user-orders', adminVerifyToken, userOrdersRoutes);
 router.use('/coupons', adminVerifyToken, couponRoutes);
 router.use('/reviews', adminVerifyToken, reviewRoutes);
+router.use('/policies', adminVerifyToken, policyRoutes);
 
 router.use('/banners', adminVerifyToken, bannerRoutes);
 router.use('/contacts', adminVerifyToken, contactRoutes);
